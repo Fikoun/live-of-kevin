@@ -1,4 +1,5 @@
 <?php
+
 // Kontrola vyplněných polí formuláře
 if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['password_check']))
 {

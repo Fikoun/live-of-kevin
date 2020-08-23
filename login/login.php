@@ -1,4 +1,5 @@
 <?php
+
 // Kontrola vyplněných polí formuláře
 if (isset($_POST['username']) && isset($_POST['password']))
 {
@@ -7,6 +8,7 @@ if (isset($_POST['username']) && isset($_POST['password']))
     
     // Hledá uživatele se stejným jmenem a heslem 
     $result = spustit_sql($databaze, "SELECT * FROM users WHERE username='$username' AND password='$password'");
+    
     if (count($result)) {
         // Když najde uživatele uloží ho do SESSION a vypíše hlášku
         $_SESSION['logged_user'] = $result[0]['id'];

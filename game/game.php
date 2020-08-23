@@ -1,4 +1,5 @@
 <?php 
+
 // Pokud není přihlášený ukončí s hláškou: Login first..!
 if (isset($_SESSION['logged_user'])) {
     $result = spustit_sql($databaze, "SELECT * FROM users WHERE id=". $_SESSION['logged_user']);
@@ -15,15 +16,17 @@ if (isset($_SESSION['logged_user'])) {
 
 // V případě stisknuté odpovědi posune hráče v příběhu dál
 if (isset($_GET['answer'])) {
-    // Nová pozice podle stisklé odpovědi
-    $new_position = spustit_sql($databaze, "SELECT * FROM answers WHERE id=" . $_GET['answer'])[0]['next'];
-    // Uloží novou pozici hráči do databáze -> SAVE
-    spustit_sql($databaze, "UPDATE users SET position='$new_position' WHERE id=" . $logged_user['id'])[0];
+    // Odpověď z databáze
+    $answer = spustit_sql($databaze, "SELECT * FROM answers WHERE id=" . $_GET['answer'])[0];
+    // Další pozice odpovědi
+    $new_position = $answer['next'];
     
+    // Uloží novou pozici hráči do databáze -> SAVE
+    spustit_sql($databaze, "UPDATE users SET position='$new_position' WHERE id=" . $logged_user['id']);
     $logged_user['position'] = $new_position;
 }
 
-// Získání další části a odpovědi, podle aktuální pozice
+// Získání části textu a odpovědi, podle aktuální pozice
 $part = spustit_sql($databaze, "SELECT * FROM parts WHERE id=" . $logged_user['position'])[0];
 $answers = spustit_sql($databaze, "SELECT * FROM answers WHERE part=" . $logged_user['position']);
 
@@ -36,7 +39,7 @@ $answers = spustit_sql($databaze, "SELECT * FROM answers WHERE part=" . $logged_
 <p> <?= $part['text'] ?> </p>
 <hr>
 
-<!-- Vypsání všech odpovědí foreachem -->
+<!-- Vypsání všech odpovědí cyklem -->
 <div class="answers">
     <?php foreach($answers as $answer) { ?>
         <a href="?page=game&answer=<?= $answer['id'] ?>"> 
