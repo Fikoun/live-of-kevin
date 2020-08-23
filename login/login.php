@@ -13,7 +13,7 @@ if (isset($_POST['username']) && isset($_POST['password']))
         echo "<i class='info'>You are now logged motherfucker</i>";
     } else {
         // Když nenajde uživatele vypíše chybovou hlášku
-        echo "<i class='warning'>*Bad motherfucker</i>";
+        echo "<i class='warning'>*Bad code motherfucker</i>";
     }
 }
 
