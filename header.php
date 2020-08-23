@@ -12,13 +12,13 @@
             <nav>
                 <?php if(isset($_SESSION['logged_user'])) { ?>
                     <!-- přihlášený -->
-                    <a href="?page=logout">Logout</a> 
+                    <a href="index.php?page=logout">Logout</a> 
                 <?php } else { ?>
                     <!-- nepřihlášený -->
-                    <a href="?page=login">Login</a>
-                    <a href="?page=register">Register</a>
+                    <a href="index.php?page=login">Login</a>
+                    <a href="index.php?page=register">Register</a>
                 <?php } ?>
-                <a class="right" href="?page=game">Game</a>
+                <a class="right" href="index.php?page=game">Game</a>
             </nav>
 
             <!-- Zde začíná obsah stránky -->
